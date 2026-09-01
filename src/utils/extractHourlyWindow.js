@@ -9,17 +9,21 @@ export function extractHourlyWindow(data) {
     data.days[0].hours, 
     data.days[1].hours, 
     data.days[2].hours
-  ]).flatMap()
+  ]).flat()
 
   // 2. filter to [nowEpoch - windowSeconds, nowEpoch + windowSeconds]
-  const windowedHours = ([
-    nowEpoch - windowSeconds,
-    nowEpoch + windowSeconds
-  ]).filter()
+  const windowStart = nowEpoch - windowSeconds
+  const windowEnd = nowEpoch + windowSeconds
+
+  const windowedHours = allHours.filter((hours)=>{
+    return hours.datetimeEpoch >= windowStart && hours.datetimeEpoch <= windowEnd
+  })
 
   // 3. (optional) find the hour closest to nowEpoch for "current conditions"
-  const current = data.days[0].hours.reduce((closest, now)=>{
-
+  const current = allHours.reduce((closest, hour)=>{
+    const closestDiff = Math.abs(closest.datetimeEpoch - nowEpoch)
+    const hourDiff = Math.abs(hour.datetimeEpoch - nowEpoch)
+    return hourDiff < closestDiff ? hour : closest
   })
 
   return { current, hours: windowedHours };
