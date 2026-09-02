@@ -2,6 +2,7 @@ import LocationInput from './components/LocationInput.jsx'
 import './App.css'
 import { useState } from 'react'
 import { useWeather } from './hooks/useWeather.js'
+import CurrentWeather from './components/CurrentWeather.jsx'
 
 function App() {
   const [city, setCity] = useState('')
@@ -14,6 +15,12 @@ function App() {
   return (
     <>
       <LocationInput onSearch={handleSearch} />
+      <CurrentWeather 
+        data={data} 
+        status={status} 
+        error={error} 
+        refetch={refetch}
+      />
     </>
   )
 }

@@ -38,8 +38,8 @@ export async function fetchWeather(location) {
     }
     throw new Error(`Something went wrong (${response.status}): ${errorText}`);
   }
-  const data = await response.json()
+  const rawData = await response.json()
 
-  return data
+  return rawData
   
 }

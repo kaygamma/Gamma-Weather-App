@@ -18,6 +18,7 @@ export function extractHourlyWindow(data) {
   const windowedHours = allHours.filter((hours)=>{
     return hours.datetimeEpoch >= windowStart && hours.datetimeEpoch <= windowEnd
   })
+  const searchedCity = data.resolvedAddress
 
   // 3. (optional) find the hour closest to nowEpoch for "current conditions"
   const current = allHours.reduce((closest, hour)=>{
@@ -26,5 +27,5 @@ export function extractHourlyWindow(data) {
     return hourDiff < closestDiff ? hour : closest
   })
 
-  return { current, hours: windowedHours };
+  return { current, hours: windowedHours, searchedCity };
 }
