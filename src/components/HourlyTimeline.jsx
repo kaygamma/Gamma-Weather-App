@@ -1,33 +1,31 @@
-function HourlyTimeline({hours, currentEpoch}) {
+import { getWeatherIcon } from "../utils/weatherIcon"
 
-  function HourCard({hour, isNow}) {
-    const time = new Date(hour.datetimeEpoch * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
-    const temp = hour.temp
-    const conditions = hour.conditions
-    const icon = hour.icon
+function HourCard({hour, isNow}) {
+  const time = new Date(hour.datetimeEpoch * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+  const temp = hour.temp
+  const conditions = hour.conditions
+  const Icon = getWeatherIcon(hour.icon)
 
-    return(
-      <div className={`flex flex-col items-center justify-center p-2 rounded-lg shrink-0  min-w-20 ${isNow ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}
+  return(
+    <div className={`flex flex-col items-center justify-center p-2 rounded-lg shrink-0  min-w-20 ${isNow ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}
+    >
+      <div
+      className="text-sm"
       >
-        <div
-        className="text-sm"
-        >
-          {time}
-        </div>
-        <div 
-        className="text-lg font-bold"
-        >
-          {temp}°C
-        </div>
-        {/* <img 
-        src={``} 
-        alt={conditions} 
-        className="w-8 h-8"
-        /> */}
-        <div className="text-[0.6rem]">{conditions}</div>
+       {time}
       </div>
-    )
-  }
+      <div 
+      className="text-lg font-bold"
+      >
+        {temp}°C
+      </div>
+      <Icon className="w-8 h-8"/>
+      <div className="text-[0.6rem]">{conditions}</div>
+    </div>
+  )
+}
+
+function HourlyTimeline({hours, currentEpoch}) {
 
   return (
     <div>
