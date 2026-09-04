@@ -6,7 +6,7 @@ function CurrentWeather({data, status, error, refetch}) {
 
   if (status === "loading") {
     return (
-    <div>Loading...</div>
+    <div className=" ">Loading...</div>
   )}
 
   if (status === "error") {
@@ -24,24 +24,28 @@ function CurrentWeather({data, status, error, refetch}) {
   const Icon = getWeatherIcon(data.current.icon)
 
   return (
-    <div>
-      <div>
-        <h2> Weather</h2>
-        <div className="flex items-center gap-4 justify-center-safe">
-          <p>{temp} °C</p>
-          <Icon className="w-12 h-12 text-keyword"/>
+    <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl shadow-2xl p-6 text-white flex flex-col gap-5">
+      <div className="flex flex-col gap-1">
+        <h2 className="font-bold" >Current Weather</h2>
+        <div className=" flex flex-row justify-between items-center gap-2">
+          <p className="font-bold text-3xl">{temp} °C</p>
+          <Icon className=" w-16 h-16 text-keyword stroke-2 "/>
         </div>
-        
         <p> {data.searchedCity}</p>
         <p>Now {new Date(datetimeEpoch * 1000).toLocaleTimeString()}</p>
       </div>
-      <div>
-        Feelslike {feelslike} °C 
+      <div className="flex justify-between gap-2">
+        <div>Feelslike {feelslike} °C </div>
+        <div>{conditions}</div>
+        <div>{windspeed} km/h </div>
+        <div>{precipprob} %</div>
       </div>
-      <div>{conditions}</div>
-      <div>{windspeed} km/h </div>
-      <div>{precipprob} %</div>
-      <button onClick={refetch}>Refresh</button>
+      <button 
+      onClick={refetch}
+      className="bg-white/5 hover:bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold py-2 px-4 rounded-2xl h-10 w-32 self-center hover:scale-105 transition-transform duration-200 ease-in-out"
+      >
+        Refresh
+      </button>
     </div>
   )
 }
