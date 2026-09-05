@@ -9,7 +9,7 @@ function HourCard({hour, isNow}) {
 
   return(
     <div className="min-w-22 min-h-34">
-      <div className={`flex flex-col items-center justify-center p-2 rounded-lg shrink-0  min-w-20 min-h-32 ${isNow ? "bg-white/10 backdrop-blur-md border border-white/10" : "bg-white/5 backdrop-blur-sm border border-white/20"}`}
+      <div className={`flex flex-col items-center justify-center p-2 rounded-lg shrink-0  min-w-20 min-h-32 bg-white/5 backdrop-blur-sm border border-white/20 not-visited:${isNow ? " scale-95 " : ""}`}
       >
         <div className="text-sm">{time}</div>
         <div className="text-lg font-bold">

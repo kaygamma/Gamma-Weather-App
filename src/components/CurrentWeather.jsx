@@ -1,4 +1,7 @@
 import { getWeatherIcon } from "../utils/weatherIcon";
+import WeatherCard from "./WeatherCard";
+import { Loader2, CloudOff } from "lucide-react";
+
 
 function CurrentWeather({data, status, error, refetch}) {
 
@@ -6,17 +9,39 @@ function CurrentWeather({data, status, error, refetch}) {
 
   if (status === "loading") {
     return (
-    <div className=" ">Loading...</div>
+    <div className="flex items-center justify-center min-h-screen">
+      <WeatherCard>
+        <div className="flex flex-col items-center gap-3 py-6" role="status" aria-live="polite">
+          <Loader2 className="w-8 h-8 animate-spin text-white/80" />
+          <p className="text-sm text-white/70 animate-pulse">Fetching weather…</p>
+        </div>
+      </WeatherCard>
+    </div>
   )}
 
   if (status === "error") {
     return (
-    <div>Error: {error}</div>
+    <div className="flex items-center justify-center min-h-screen">
+      <WeatherCard>
+        <div role="alert" className="flex flex-col items-center gap-3 py-6 text-center">
+          <CloudOff className="w-8 h-8 text-amber-300" />
+          <p className="text-sm text-white/90">{error}</p>
+          <button
+            onClick={refetch}
+            className="mt-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-2 text-sm font-medium transition"
+          >
+            Try Again
+          </button>
+        </div>
+      </WeatherCard>
+    </div>
   )}
 
   if (status === "success" && !data) {
     return (
-    <div>No data found</div>
+    <WeatherCard>
+      <div>No data found</div>
+    </WeatherCard>
   )}
     
   const { temp, feelslike, windspeed, precipprob, conditions, datetimeEpoch } = data.current;

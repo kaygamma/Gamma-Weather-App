@@ -27,16 +27,15 @@ function App() {
           <div className="relative z-10 flex flex-col gap-4 md:gap-6 max-w-2xl mx-auto  p-4 md:p-6 ">
 
             <LocationInput 
-              className={`transition-all duration-700 ease-in-out ${isSubmitted? '' : 'flex justify-center items-center h-screen'}`}
+              className={`transition-transform duration-700 ease-in-out ${isSubmitted? '' : 'flex justify-center items-center h-screen'}`}
               onSearch={handleSearch} 
             />
-            { status === "success"  && (
-              <CurrentWeather 
+            <CurrentWeather 
               data={data} 
               status={status} 
               error={error} 
               refetch={refetch}
-            />)}
+            />
             { status === "success"  && (
               <HourlyTimeline 
               hours={data?.hours} 
