@@ -8,30 +8,35 @@ import { getSkyGradient } from './utils/Sky_Themes.js'
 
 function App() {
   const [city, setCity] = useState('')
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const { data, status, error, refetch } = useWeather(city)
 
   const gradientClasses = data ? getSkyGradient(data.current.icon) : "from-slate-700 to-slate-900"; // fallback before any search
 
   function handleSearch(seachedCity){
     setCity(seachedCity)
+    setIsSubmitted(true)
   }
   
   return (
     <>
-      <div className={`relative min-h-screen bg-linear-to-br ${gradientClasses} transition-colors duration-400 ease-in-out w-full h-full `}
+      <div className={`fixed inset-0 bg-linear-to-br ${gradientClasses} transition-colors duration-1000 ease-in-out -z-20 `}
       >
-        <div className=" absolute inset-0 bg-black/45 backdrop-blur-sm z-0"
+        <div className=" fixed inset-0 bg-black/45 backdrop-blur-sm -z-10"
         >
-          <div className="relative z-10 flex flex-col gap-4 md:gap-6 max-w-2xl mx-auto  p-4 md:p-6">
+          <div className="relative z-10 flex flex-col gap-4 md:gap-6 max-w-2xl mx-auto  p-4 md:p-6 ">
+
             <LocationInput 
+              className={`transition-all duration-700 ease-in-out ${isSubmitted? '' : 'flex justify-center items-center h-screen'}`}
               onSearch={handleSearch} 
             />
-            <CurrentWeather 
+            { status === "success"  && (
+              <CurrentWeather 
               data={data} 
               status={status} 
               error={error} 
               refetch={refetch}
-            />
+            />)}
             { status === "success"  && (
               <HourlyTimeline 
               hours={data?.hours} 

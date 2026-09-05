@@ -24,7 +24,7 @@ function CurrentWeather({data, status, error, refetch}) {
   const Icon = getWeatherIcon(data.current.icon)
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl shadow-2xl p-6 text-white flex flex-col gap-5">
+    <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl shadow-2xl p-6 text-white flex flex-col gap-5 hover:scale-101 duration-300 ">
       <div className="flex flex-col gap-1">
         <h2 className="font-bold" >Current Weather</h2>
         <div className=" flex flex-row justify-between items-center gap-2">
